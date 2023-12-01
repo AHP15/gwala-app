@@ -17,6 +17,6 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
-app.get('/hello', (_, res) => res.send({ message: 'Hello there' }));
+app.get('/hello', (_, res) => res.status(200).send({ message: 'Hello there' }));
 
 export default app;
