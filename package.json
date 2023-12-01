@@ -9,10 +9,13 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "dev": "node server.js",
-    "start": "npm run build && NODE_ENV=production node server.js"
+    "start": "npm run build && NODE_ENV=production node server.js",
+    "dx": "docker compose up",
+    "stop": "docker compose down --volumes"
   },
   "dependencies": {
     "express": "^4.18.2",
+    "mongoose": "^8.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "vite-express": "^0.11.1"
