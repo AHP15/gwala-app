@@ -9,7 +9,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
   app:
     image: node:20-alpine
-    command: sh -c "sleep 5; yarn run start"
+    command: sh -c "sleep 5; yarn install && yarn run start"
     ports:
       - 8080:8080
     working_dir: /app
