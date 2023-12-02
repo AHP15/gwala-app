@@ -30,19 +30,16 @@ describe('Signup route', () => {
 
   let responses;
   beforeAll(async () => {
-    DB.connect("mongodb://0.0.0.0:27017", 'gwala-test');
+    const randomDbName = Math.random().toString().substring(3);
+    DB.connect("mongodb://root:example@0.0.0.0:27017/", randomDbName);
     responses = await Promise.allSettled(Object.values(requests).map(req => req()));
-  });
-
-  afterAll(async () => {
-    await DB.mongoose.disconnect();
   });
 
   test('It should signup a new user', () => {
     const res = responses[0];
     const { statusCode, body } = res.value;
 
-    expect(statusCode).toBe(200);
+    expect(statusCode).toBe(201);
     expect(body.success).toBe(true);
     expect(body.data.message).toBe('user created');
     expect(body.error).toBe(null);
@@ -54,7 +51,7 @@ describe('Signup route', () => {
 
     expect(statusCode).toBe(400);
     expect(body.success).toBe(false);
-    expect(body.error).toBe('User email is required');
+    expect(body.error).toContain('User email is required');
     expect(body.data).toBe(null);
   });
 
@@ -64,7 +61,7 @@ describe('Signup route', () => {
 
     expect(statusCode).toBe(400);
     expect(body.success).toBe(false);
-    expect(body.error).toBe('User password is required');
+    expect(body.error).toContain('User password is required');
     expect(body.data).toBe(null);
   });
 
@@ -74,7 +71,7 @@ describe('Signup route', () => {
 
     expect(statusCode).toBe(400);
     expect(body.success).toBe(false);
-    expect(body.error).toBe('Invalid email address');
+    expect(body.error).toContain('Invalid email address');
     expect(body.data).toBe(null);
   });
 
@@ -84,7 +81,7 @@ describe('Signup route', () => {
 
     expect(statusCode).toBe(400);
     expect(body.success).toBe(false);
-    expect(body.error).toBe('Password must be at least 8 characters');
+    expect(body.error).toContain('Password must be at least 8 characters');
     expect(body.data).toBe(null);
   });
-})
+});

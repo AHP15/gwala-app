@@ -9,9 +9,11 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "dev": "node server.js",
-    "start": "npm run build && NODE_ENV=production node server.js",
+    "start": "npm run build && NODE_ENV=production node --watch server.js",
     "dx": "docker compose up",
     "stop": "docker compose down --volumes",
+    "testdb": "docker run --name test-mongo -dp 127.0.0.1:27017:27017 -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=example mongo",
+    "stopdb": "docker rm -f test-mongo",
     "test": "vitest"
   },
   "dependencies": {

@@ -1,8 +1,8 @@
 /* eslint-disable no-undef */
 import mongoose from 'mongoose';
-import validator from "validator";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcryptjs";
+import validator from 'validator';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -25,13 +25,18 @@ const userSchema = new mongoose.Schema({
   resetPasswordExpire: Date,
 });
 
-userSchema.pre("save", function (next) {
+userSchema.pre('save', async function (next) {
 
-  if (!this.isModified("passowrd")) {
-    next();
+  if (!this.isModified('password')) {
+    return next();
   }
 
-  this.password = bcrypt.hashSync(this.password, 10);
+  try {
+    this.password = await bcrypt.hash(this.password, 10);
+    next();
+  } catch (error) {
+    return next(error);
+  }
 });
 
 userSchema.methods.compatePasswords = function (clientPassword) {

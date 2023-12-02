@@ -5,7 +5,7 @@ import app from './backend/app.js';
 import DB from './backend/models/index.js';
 
 // connection to the DB
-DB.connect(rocess.env.DATABASE_URL, 'gwala');
+DB.connect(process.env.DATABASE_URL, 'gwala');
 
 if (process.env.NODE_ENV === 'production') {
     app.listen(8080, () => {

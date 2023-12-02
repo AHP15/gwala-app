@@ -20,14 +20,17 @@ const DB = {
             dbName: name,
         })
             .then(() => {
-                console.log("Connecting to the DB seccussfully!!", name);
+                console.log("Connecting to the DB seccussfully", name);
                 isConnected = true;
             })
             .catch(err => {
                 console.log("Error while connecting to the db", err);
                 // eslint-disable-next-line no-undef
-                process.exit();
+                // process.exit();
             });
+    },
+    disconnect() {
+        mongoose.disconnect();
     }
 };
 

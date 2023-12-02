@@ -12,12 +12,13 @@ const requests = {
 describe('The root route', () => {
   let responses;
   beforeAll(async () => {
-    DB.connect("mongodb://0.0.0.0:27017", 'gwala-test');
+    const randomDbName = Math.random().toString().substring(3);
+    DB.connect("mongodb://0.0.0.0:27017", randomDbName);
     responses = await Promise.allSettled(Object.values(requests).map(req => req()));
   });
 
   afterAll(async () => {
-    await DB.mongoose.disconnect();
+    DB.disconnect();
   });
 
   test('Get /', () => {
