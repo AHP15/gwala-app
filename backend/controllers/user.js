@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 import DB from '../models/index.js';
 import CustomError from '../utils/customError.js';
+import { sendResetPasswordEmail } from '../utils/mailer.js';
 
 
 const User = DB.user;
@@ -87,6 +88,15 @@ const forgotPassword = async (req, res, next) => {
     const resetPasswordUrl = `${req.protocol}://${req.get('host')}/password/reset/${resetToken}`;
     const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then, please ignore it.`;
 
+    sendResetPasswordEmail(user.email, message);
+
+    res.status(200).send({
+      success: true,
+      data: {
+        message: `Email sent to ${user.email} .Please check your email`,
+      },
+      error: null
+    });
   } catch (err) {
     next(new CustomError(err.message));
   }

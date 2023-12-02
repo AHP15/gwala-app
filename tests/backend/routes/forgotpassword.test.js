@@ -7,7 +7,7 @@ import DB from '../../../backend/models/index.js';
 const route = '/auth/password/forgot'
 const requests = {
   sendEmail: () => Request(app).post(route).send({
-    email: 'test@gmail.com'
+    email: 'harkati.web.dev@gmail.com'
   }),
   emailRequired: () => Request(app).post(route).send({}),
   emailExist: () => Request(app).post(route).send({ email: 'unknown@gmail.com' })
@@ -20,7 +20,7 @@ describe('Forgot password route', () => {
     const randomDbName = Math.random().toString().substring(3);
     DB.connect("mongodb://root:example@0.0.0.0:27017/", randomDbName);
     await DB.user.create({
-      email: 'test@gmail.com',
+      email: 'harkati.web.dev@gmail.com',
       password: 'passwordsecret'
     });
     responses = await Promise.allSettled(Object.values(requests).map(req => req()));
@@ -32,7 +32,7 @@ describe('Forgot password route', () => {
 
     expect(statusCode).toBe(200);
     expect(body.success).toBe(true);
-    expect(body.data.message).toContain('Email sent to test@gmail.com .Please check your email');
+    expect(body.data.message).toContain('Email sent to harkati.web.dev@gmail.com .Please check your email');
   });
 
   test('Email should be required', () => {
