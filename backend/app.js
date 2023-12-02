@@ -6,6 +6,8 @@ import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 import userRouter from './routes/user.js';
+import questionRouter from './routes/question.js';
+import answerRouter from './routes/answer.js';
 import CustomError from './utils/customError.js';
 
 
@@ -25,7 +27,10 @@ if (process.env.NODE_ENV === 'production') {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
 app.use(userRouter);
+app.use(questionRouter);
+app.use(answerRouter);
 
 app.get('/hello', (_, res) => res.status(200).send({ message: 'Hello there' }));
 
