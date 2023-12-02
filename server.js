@@ -5,16 +5,7 @@ import app from './backend/app.js';
 import DB from './backend/models/index.js';
 
 // connection to the DB
-DB.mongoose.connect(process.env.DATABASE_URL, {
-    dbName: 'gwala',
-})
-    .then(() => {
-        console.log("Connecting to the DB seccussfully!!");
-    })
-    .catch(err => {
-        console.log("Error while connecting to the db", err);
-        process.exit();
-    });
+DB.connect(rocess.env.DATABASE_URL, 'gwala');
 
 if (process.env.NODE_ENV === 'production') {
     app.listen(8080, () => {

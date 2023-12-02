@@ -12,9 +12,7 @@ const requests = {
 describe('The root route', () => {
   let responses;
   beforeAll(async () => {
-    await DB.mongoose.connect("mongodb://0.0.0.0:27017", {
-      dbName: 'gwala-test',
-    });
+    DB.connect("mongodb://0.0.0.0:27017", 'gwala-test');
     responses = await Promise.allSettled(Object.values(requests).map(req => req()));
   });
 
