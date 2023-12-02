@@ -4,6 +4,7 @@ import DB from '../models/index.js';
 import CustomError from '../utils/customError.js';
 
 const Question = DB.question;
+const Favorite = DB.favorite;
 
 const createQuestion = async (req, res, next) => {
   try {
@@ -68,4 +69,31 @@ const getQuestions = async (req, res, next) => {
   }
 };
 
-export { createQuestion, getQuestions };
+const addLike = async (req, res, next) => {
+  try {
+    const question = await Question.findById(req.body.questionId);
+
+    question.likes.push(req.userId);
+
+    await question.save();
+
+    const favorite = await Favorite.create({
+      user: req.userId,
+      question: question.id
+    });
+
+    res.status(200).send({
+      success: true,
+      data: {
+        question,
+        favorite
+      },
+      error: null
+    })
+
+  } catch (err) {
+    next(new CustomError(err.message));
+  }
+};
+
+export { createQuestion, getQuestions, addLike };
