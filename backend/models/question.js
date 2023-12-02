@@ -13,6 +13,10 @@ const questionSchema = new mongoose.Schema({
     type: { type: String, enum: ['Point'], default: 'Point' },
     coordinates: { type: [Number], required: true },
   },
+  locationName: {
+    type: String,
+    required: [true, 'Question location is required'],
+  },
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
