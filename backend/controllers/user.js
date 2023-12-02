@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import DB from '../models/index.js';
 import CustomError from '../utils/customError.js';
 
@@ -7,11 +8,20 @@ const User = DB.user;
 const signup = async (req, res, next) => {
   try {
     const user = await User.create(req.body);
-    console.log(user);
-    res.status(201).send({
+
+    const token = user.getJwtToken();
+
+    const options = {
+      expires: new Date(
+        Date.now() + parseFloat(process.env.JWT_EXPIRE * 1000)
+      ),
+      httpOnly: true
+    };
+
+    res.status(201).cookie('token', token, options).send({
       success: true,
       data: {
-        message: 'user created'
+        message: 'user created',
       },
       error: null,
     });
@@ -42,7 +52,16 @@ const signin = async (req, res, next) => {
       throw new Error('Unauthorized: Incorrect Password');
     }
 
-    res.status(200).send({
+    const token = user.getJwtToken();
+
+    const options = {
+      expires: new Date(
+        Date.now() + parseFloat(process.env.JWT_EXPIRE * 1000)
+      ),
+      httpOnly: true
+    };
+
+    res.status(200).cookie('token', token, options).send({
       success: true,
       data: {},
       error: null

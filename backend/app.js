@@ -1,4 +1,6 @@
+import 'dotenv/config';
 import express from 'express';
+import cookieParser from 'cookie-parser';
 
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -22,6 +24,7 @@ if (process.env.NODE_ENV === 'production') {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(userRouter);
 
 app.get('/hello', (_, res) => res.status(200).send({ message: 'Hello there' }));
