@@ -71,4 +71,29 @@ const signin = async (req, res, next) => {
   }
 };
 
-export { signup, signin };
+const forgotPassword = async (req, res, next) => {
+  try {
+    if (!req.body.email) {
+      throw new Error('Validation failed: No email address provided');
+    }
+
+    const user = await User.findOne({ email: req.body.email });
+
+    if (!user) {
+      throw new Error(`Not found: ${req.body.email} does not exist`);
+    }
+
+    const resetToken = user.getResetPasswordToken();
+    const resetPasswordUrl = `${req.protocol}://${req.get('host')}/password/reset/${resetToken}`;
+    const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then, please ignore it.`;
+
+  } catch (err) {
+    next(new CustomError(err.message));
+  }
+};
+
+export {
+  signup,
+  signin,
+  forgotPassword
+};
