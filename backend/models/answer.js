@@ -5,8 +5,16 @@ const answerSchema = mongoose.Schema({
     type: String,
     required: [true, 'Answer content is required']
   },
-  question: { type: mongoose.Schema.Types.ObjectId, ref: 'Question', required: true },
-  author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  question: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Question',
+    required: [true, 'Answer question is required']
+  },
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: [true, 'Answer user is required']
+  },
 });
 
 const Answer = mongoose.model('Answer', answerSchema);
