@@ -39,4 +39,33 @@ const createQuestion = async (req, res, next) => {
   }
 };
 
-export { createQuestion };
+const getQuestions = async (req, res, next) => {
+  try {
+    const data = await opencage.geocode({ q: req.params.location });
+    const place = data.results[0];
+
+    const questions = await Question.find({
+      location: {
+        $nearSphere: {
+          $geometry: {
+            type: 'Point',
+            coordinates: [place.geometry.lng, place.geometry.lat],
+          },
+        },
+      },
+    });
+
+    res.status(200).send({
+      success: true,
+      data: {
+        questions
+      },
+      error: null
+    });
+
+  } catch (err) {
+    next(new CustomError(err.message));
+  }
+};
+
+export { createQuestion, getQuestions };
