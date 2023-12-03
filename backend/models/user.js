@@ -52,7 +52,7 @@ userSchema.methods.getJwtToken = function () {
 }
 
 // Generate a reset password token
-userSchema.methods.getResetPasswordToken = function () {
+userSchema.methods.generateResetToken = function () {
 
   // Generating token
   const resetToken = crypto.randomBytes(20).toString("hex");

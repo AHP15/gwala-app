@@ -13,17 +13,6 @@ import CustomError from './utils/customError.js';
 
 const app = express();
 
-// eslint-disable-next-line no-undef
-if (process.env.NODE_ENV === 'production') {
-
-    const __dirname = dirname(fileURLToPath(import.meta.url));
-    app.use(express.static(path.join(__dirname, 'static')));
-
-    app.get('*', (req, res) => {
-        res.redirect('index.html');
-    });
-}
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -31,6 +20,17 @@ app.use(cookieParser());
 app.use(userRouter);
 app.use(questionRouter);
 app.use(answerRouter);
+
+// eslint-disable-next-line no-undef
+if (process.env.NODE_ENV === 'production') {
+
+    const __dirname = dirname(fileURLToPath(import.meta.url));
+    app.use(express.static(path.join(__dirname, 'static')));
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'static/index.html'));
+    });
+}
 
 app.get('/hello', (_, res) => res.status(200).send({ message: 'Hello there' }));
 

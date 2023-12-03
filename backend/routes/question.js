@@ -6,7 +6,7 @@ import express from 'express';
 const router = express.Router();
 
 router.post('/question/new', verifyToken, createQuestion);
-router.post('/question/:location', verifyToken, getQuestions);
+router.get('/question/:location', verifyToken, getQuestions);
 router.post('/question/like', verifyToken, addLike);
 
 export default router;

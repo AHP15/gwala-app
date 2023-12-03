@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import nodemailer from 'nodemailer';
 
-const send = (options) => {
+const send = async (options) => {
   try {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
@@ -9,9 +9,11 @@ const send = (options) => {
         user: process.env.GMAIL,
         pass: process.env.GMAIL_PASSWORD,
       },
+      pool: true,
     });
 
-    transporter.sendMail({ from: process.env.GMAIL, ...options });
+    await transporter.sendMail({ from: process.env.GMAIL, ...options });
+    transporter.close();
   } catch (err) {
     console.log(err)
   }

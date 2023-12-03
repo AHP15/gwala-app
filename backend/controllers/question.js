@@ -31,7 +31,8 @@ const createQuestion = async (req, res, next) => {
     res.status(201).send({
       success: true,
       data: {
-        question
+        question,
+        message: 'Question added'
       },
       error: null
     });
@@ -59,7 +60,14 @@ const getQuestions = async (req, res, next) => {
     res.status(200).send({
       success: true,
       data: {
-        questions
+        questions: questions.map(question => ({
+          id: question.id,
+          title: question.title,
+          content: question.content,
+          location: question.locationName,
+          answers: question.answers.length,
+          likes: question.likes.length
+        }))
       },
       error: null
     });
