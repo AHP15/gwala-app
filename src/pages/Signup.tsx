@@ -5,6 +5,7 @@ import { useUnauthEffect } from '../hooks/useAuth';
 import request from '../request';
 import { useDispatch } from '../context';
 import { SET_ALERT, SET_PROFILE } from '../context/actions';
+import styles from '../styles/Form.module.css';
 
 type SignupStateType = {
   email: string,
@@ -48,36 +49,35 @@ const Signup = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <Input
-          label="Email"
-          options={{
-            id: 'signup_email',
-            type: 'email',
-            name: 'email',
-            placeholder: 'Type your email',
-            value: state.email,
-            onChange: handleChange,
-            required: true,
-          }}
-        />
-        <Input
-          label="Password"
-          options={{
-            id: 'signup_password',
-            type: 'password',
-            name: 'password',
-            placeholder: 'Type your password',
-            value: state.password,
-            onChange: handleChange,
-            required: true,
-          }}
-        />
-        <button type='submit'>Sing up</button>
-        <Link to='/signin'>signin</Link>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <h1>Sign Up</h1>
+      <Input
+        label="Email"
+        options={{
+          id: 'signup_email',
+          type: 'email',
+          name: 'email',
+          placeholder: 'Type your email',
+          value: state.email,
+          onChange: handleChange,
+          required: true,
+        }}
+      />
+      <Input
+        label="Password"
+        options={{
+          id: 'signup_password',
+          type: 'password',
+          name: 'password',
+          placeholder: 'Type your password',
+          value: state.password,
+          onChange: handleChange,
+          required: true,
+        }}
+      />
+      <button type='submit'>Sing up</button>
+      <Link className={styles.link} to='/signin'>signin</Link>
+    </form>
   );
 };
 

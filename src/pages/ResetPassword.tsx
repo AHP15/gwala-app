@@ -5,6 +5,7 @@ import { useUnauthEffect } from '../hooks/useAuth';
 import request from '../request';
 import { useDispatch } from '../context';
 import { SET_ALERT } from '../context/actions';
+import styles from '../styles/Form.module.css';
 
 const ResetPassword = () => {
   useUnauthEffect();
@@ -54,36 +55,35 @@ const ResetPassword = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <Input
-          label="Password"
-          options={{
-            id: 'reset_password',
-            type: 'password',
-            name: 'password',
-            placeholder: 'Type your password',
-            value: state.password,
-            onChange: handleChange,
-            required: true,
-          }}
-        />
-        <Input
-          label="Confirm Password"
-          options={{
-            id: 'reset_confirm_password',
-            type: 'password',
-            name: 'confirmPassword',
-            placeholder: 'Confirm your password',
-            value: state.confirmPassword,
-            onChange: handleChange,
-            required: true,
-          }}
-        />
-        <button type='submit'>Reset Password</button>
-        <Link to='/signin'>signin</Link>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <h1>Reset Password</h1>
+      <Input
+        label="Password"
+        options={{
+          id: 'reset_password',
+          type: 'password',
+          name: 'password',
+          placeholder: 'Type your password',
+          value: state.password,
+          onChange: handleChange,
+          required: true,
+        }}
+      />
+      <Input
+        label="Confirm Password"
+        options={{
+          id: 'reset_confirm_password',
+          type: 'password',
+          name: 'confirmPassword',
+          placeholder: 'Confirm your password',
+          value: state.confirmPassword,
+          onChange: handleChange,
+          required: true,
+        }}
+      />
+      <button type='submit'>Reset Password</button>
+      <Link className={styles.link} to='/signin'>signin</Link>
+    </form>
   );
 }
 

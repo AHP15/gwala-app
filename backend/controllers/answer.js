@@ -18,7 +18,10 @@ const createAnswer = async (req, res, next) => {
     res.status(201).send({
       success: true,
       data: {
-        answer
+        answer: {
+          id: answer.id,
+          content: answer.content,
+        }
       },
       error: null
     });

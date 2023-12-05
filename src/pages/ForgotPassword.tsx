@@ -5,6 +5,7 @@ import { useUnauthEffect } from '../hooks/useAuth';
 import request from '../request';
 import { useDispatch } from '../context';
 import { SET_ALERT } from '../context/actions';
+import styles from '../styles/Form.module.css';
 
 const ForgotPassword = () => {
 
@@ -38,24 +39,23 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <Input
-          label="Email"
-          options={{
-            id: 'signin_email',
-            type: 'email',
-            name: 'email',
-            placeholder: 'Type your email',
-            value: email,
-            onChange: (e) => setEmail(e.target.value),
-            required: true,
-          }}
-        />
-        <button type="submit">submit</button>
-        <Link to='/signin'>signin</Link>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <h1>Forgot Password</h1>
+      <Input
+        label="Email"
+        options={{
+          id: 'signin_email',
+          type: 'email',
+          name: 'email',
+          placeholder: 'Type your email',
+          value: email,
+          onChange: (e) => setEmail(e.target.value),
+          required: true,
+        }}
+      />
+      <button type="submit">submit</button>
+      <Link className={styles.link} to='/signin'>signin</Link>
+    </form>
   );
 };
 

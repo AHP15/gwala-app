@@ -41,7 +41,7 @@ const router = createBrowserRouter([
     element: <CreateQuestion />
   },
   {
-    path: '/question/questionId',
+    path: '/question/details/:id',
     element: <Question />
   }
 ]);

@@ -4,6 +4,8 @@ import { useAuthEffect } from '../hooks/useAuth';
 import request from '../request';
 import { useDispatch } from '../context';
 import { SET_ALERT } from '../context/actions';
+import styles from '../styles/Form.module.css';
+import Header from '../components/Header';
 
 const CreateQuestion = () => {
   useAuthEffect();
@@ -57,7 +59,9 @@ const CreateQuestion = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <Header />
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <h1>Post Question</h1>
         <Input
           label='Title'
           options={{

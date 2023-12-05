@@ -77,6 +77,40 @@ const getQuestions = async (req, res, next) => {
   }
 };
 
+const getQuestion = async (req, res, next) => {
+  try {
+    const question = await Question.findById(req.params.id).populate('author')
+      .populate({
+        path: 'answers',
+        populate: { path: 'author' },
+      });
+
+    const data = {
+      id: question.id,
+      title: question.title,
+      content: question.content,
+      location: question.locationName,
+      author: question.author.email,
+      answers: question.answers.map(answer => ({
+        id: answer.id,
+        content: answer.content,
+        author: answer.author.email
+      })),
+      likes: question.likes.length,
+    };
+
+    res.status(200).send({
+      success: true,
+      data: {
+        question: data
+      },
+      error: null
+    });
+  } catch (err) {
+    next(new CustomError(err.message));
+  }
+};
+
 const addLike = async (req, res, next) => {
   try {
     const question = await Question.findById(req.body.questionId);
@@ -104,4 +138,4 @@ const addLike = async (req, res, next) => {
   }
 };
 
-export { createQuestion, getQuestions, addLike };
+export { createQuestion, getQuestions, addLike, getQuestion };

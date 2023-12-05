@@ -3,9 +3,10 @@ import '../App.css'
 import { useAuthEffect } from '../hooks/useAuth'
 import request from '../request'
 import { useDispatch } from '../context'
-import { SET_ALERT, UNAUTHORIZED } from '../context/actions'
+import { SET_ALERT } from '../context/actions'
 import Input from '../components/Input'
 import { Link } from 'react-router-dom'
+import Header from '../components/Header'
 
 
 type Question = {
@@ -25,26 +26,12 @@ function Home() {
 
   const dispatch = useDispatch();
 
-  const handleClick = async () => {
-    const response = await request(
-      '/auth/signout',
-      {
-        method: 'get',
-      }
-    );
-    if (response.success) {
-      dispatch({ type: UNAUTHORIZED });
-    } else {
-      dispatch({ type: SET_ALERT, payload: { type: 'error', message: response.error } });
-    }
-  };
-
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (!location) return;
 
     const response = await request(
-      `/question/${location}`,
+      `/questions/${location}`,
       {
         method: 'get',
       }
@@ -59,6 +46,7 @@ function Home() {
 
   return (
     <>
+      <Header />
       <form onSubmit={handleSubmit}>
         <Input
           label='Location'
@@ -77,7 +65,7 @@ function Home() {
 
       {
         questions.map(question => (
-          <Link to={`/question/${question.id}`}>
+          <Link to={`/question/details/${question.id}`}>
             <div>
               <h2>{question.title}</h2>
               <p>{question.content}</p>
@@ -90,7 +78,6 @@ function Home() {
           </Link>
         ))
       }
-      <button type='button' onClick={handleClick}>signout</button>
     </>
   )
 }

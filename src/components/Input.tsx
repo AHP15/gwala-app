@@ -1,3 +1,4 @@
+import styles from '../styles/Input.module.css';
 
 type Options = {
   id: string,
@@ -12,9 +13,9 @@ type Options = {
 
 const Input = ({ label, options }: { label: string, options: Options }) => {
   return (
-    <div>
-      <label htmlFor={options.id}>{label}</label>
-      <input {...options} />
+    <div className={styles.container}>
+      <label htmlFor={options.id} className={styles.label}>{label}</label>
+      <input {...options} className={styles.input} />
     </div>
   );
 }
