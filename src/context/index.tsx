@@ -89,7 +89,7 @@ export default function StateProvider({ children }: { children: AppComponent }) 
 
   async function getProfile() {
     const response = await request(
-      '/user/profile',
+      '/api/v1/user/profile',
       {
         method: 'get'
       }

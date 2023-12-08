@@ -34,7 +34,7 @@ const Signin = () => {
 
     if (!state.email || !state.password) return;
 
-    const response = await request('/auth/signin', {
+    const response = await request('/api/v1/auth/signin', {
       method: 'post',
       body: JSON.stringify(state),
       headers: {

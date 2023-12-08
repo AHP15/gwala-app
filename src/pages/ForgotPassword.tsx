@@ -19,7 +19,7 @@ const ForgotPassword = () => {
     if (!email) return;
 
     const response = await request(
-      '/auth/password/forgot',
+      '/api/v1/auth/password/forgot',
       {
         method: 'post',
         body: JSON.stringify({ email }),

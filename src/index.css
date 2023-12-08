@@ -24,6 +24,8 @@ button {
   padding:  5px 16px;
   border-radius: 2px;
   transition: 0.3s;
+  width: fit-content;
+  height: fit-content;
 }
 
 button:hover {

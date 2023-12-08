@@ -7,6 +7,7 @@ import { SET_ALERT } from '../context/actions'
 import Input from '../components/Input'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
+import styles from '../styles/Home.module.css';
 
 
 type Question = {
@@ -31,7 +32,7 @@ function Home() {
     if (!location) return;
 
     const response = await request(
-      `/questions/${location}`,
+      `/api/v1/questions/${location}`,
       {
         method: 'get',
       }
@@ -47,7 +48,7 @@ function Home() {
   return (
     <>
       <Header />
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <Input
           label='Location'
           options={{
@@ -63,21 +64,23 @@ function Home() {
         <button type='submit'>Find Questions</button>
       </form>
 
-      {
-        questions.map(question => (
-          <Link to={`/question/details/${question.id}`}>
-            <div>
-              <h2>{question.title}</h2>
-              <p>{question.content}</p>
-              <p>{question.location}</p>
-              <div>
-                <p>{question.likes}</p>
-                <p>{question.answers}</p>
+      <div className={styles.card_container}>
+        {
+          questions.map(question => (
+            <Link to={`/question/details/${question.id}`} className={styles.card_link}>
+              <div className={styles.card}>
+                <h2>{question.title}</h2>
+                <p>{question.content}</p>
+                <p>{question.location}</p>
+                <div className={styles.card_interactions}>
+                  <div>likes: {question.likes}</div>
+                  <div>answers: {question.answers}</div>
+                </div>
               </div>
-            </div>
-          </Link>
-        ))
-      }
+            </Link>
+          ))
+        }
+      </div>
     </>
   )
 }

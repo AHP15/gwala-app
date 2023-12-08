@@ -10,7 +10,7 @@ const Alert = () => {
 
   useEffect(() => {
     if (alert.type) {
-      setTimeout(() => dispatch({ type: CLEAR_ALERT }), 60000);
+      setTimeout(() => dispatch({ type: CLEAR_ALERT }), 5000);
     }
   }, [dispatch, alert.type]);
 

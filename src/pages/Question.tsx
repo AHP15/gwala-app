@@ -8,6 +8,7 @@ import Answer from '../components/Answer';
 import CreateAnswer from '../components/CreateAnswer';
 import Pending from '../components/Pending';
 import Header from '../components/Header';
+import styles from '../styles/Question.module.css';
 
 export type AnswerType = {
   id: string,
@@ -44,7 +45,7 @@ const Question = () => {
 
   const getQuestion = useCallback(async () => {
     const response = await request(
-      `/question/${id}`,
+      `/api/v1/question/${id}`,
       {
         method: 'get'
       }
@@ -66,18 +67,20 @@ const Question = () => {
   if (!question.id) return <Pending />;
 
   return (
-    <div>
+    <>
       <Header />
-      <h1>{question.title}</h1>
-      <p>{question.content}</p>
-      <p>{question.location}</p>
-      <CreateAnswer questionId={question.id} callback={addAnswer} />
-      <div>
-        {question.answers.map((answer, index) => (
-          <Answer key={index} answer={answer} />
-        ))}
+      <div className={styles.question}>
+        <h1 className={styles.question_title}>{question.title}</h1>
+        <p>{question.content}</p>
+        <p>{question.location}</p>
+        <CreateAnswer questionId={question.id} callback={addAnswer} />
+        <div>
+          {question.answers.map((answer, index) => (
+            <Answer key={index} answer={answer} />
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

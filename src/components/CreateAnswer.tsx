@@ -21,7 +21,7 @@ const CreateAnswer = React.memo((
     if (!content) return;
 
     const response = await request(
-      '/answer/new',
+      '/api/v1/answer/new',
       {
         method: 'POST',
         body: JSON.stringify({ content, question: questionId }),

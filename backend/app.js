@@ -17,9 +17,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use(userRouter);
-app.use(questionRouter);
-app.use(answerRouter);
+app.use('/api/v1', userRouter);
+app.use('/api/v1', questionRouter);
+app.use('/api/v1', answerRouter);
 
 // eslint-disable-next-line no-undef
 if (process.env.NODE_ENV === 'production') {

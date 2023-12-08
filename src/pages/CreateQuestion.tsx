@@ -30,7 +30,7 @@ const CreateQuestion = () => {
     if (!state.title || !state.content || !state.location) return;
 
     const response = await request(
-      '/question/new',
+      '/api/v1/question/new',
       {
         method: 'post',
         body: JSON.stringify(state),

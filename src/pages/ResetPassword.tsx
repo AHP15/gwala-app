@@ -31,7 +31,7 @@ const ResetPassword = () => {
     if (!state.password || !state.confirmPassword) return;
 
     const response = await request(
-      `/auth/password/reset/${token}`,
+      `/api/v1/auth/password/reset/${token}`,
       {
         method: 'put',
         body: JSON.stringify(state),

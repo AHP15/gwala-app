@@ -1,0 +1,12 @@
+.question {
+  padding: 20px;
+}
+
+.question_title {
+  color: #4caf50;
+  margin: 20px;
+}
+
+.question p {
+  margin: 20px;
+}
